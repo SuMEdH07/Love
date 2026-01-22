@@ -120,7 +120,7 @@ const Envelope = ({ onOpen, message, setMessage }) => {
             >
               <div className="bg-white/10 p-4 rounded-xl">
                 <motion.img
-                  src="/dairy_milk_v2.png"
+                  src="dairy_milk_v2.png"
                   alt="Dairy Milk Chocolate"
                   className="w-full h-auto min-h-[220px] mx-auto object-contain drop-shadow-2xl"
                   initial={{ scale: 0.8, y: 20 }}
