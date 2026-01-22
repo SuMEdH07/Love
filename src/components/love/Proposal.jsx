@@ -27,7 +27,7 @@ const Proposal = ({ onYes }) => {
             </div>
             <div className="w-32 h-32 md:w-60 md:h-60 -mt-10 md:-mt-16 mb-4 animate-wobble z-50 relative">
                 <img
-                    src="dairy_milk_v2.png"
+                    src="/Love/dairy_milk_v2.png"
                     alt="Dairy Milk"
                     className="w-full h-full object-contain drop-shadow-2xl filter brightness-110 blend-image"
                     onError={(e) => {

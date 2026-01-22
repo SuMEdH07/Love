@@ -122,7 +122,7 @@ const Slideshow = ({ message, setMessage }) => {
         <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
             {/* Background Music */}
             <audio ref={audioRef} loop>
-                <source src="sang_rahiyo.mp3" type="audio/mp3" />
+                <source src="/Love/sang_rahiyo.mp3" type="audio/mp3" />
             </audio>
 
             {/* Music Control */}
