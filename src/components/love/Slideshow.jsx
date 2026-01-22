@@ -7,9 +7,6 @@ const Slideshow = ({ message, setMessage }) => {
     const imagesGlob = import.meta.glob('../../assets/love/*.{png,jpg,jpeg,svg}', { eager: true });
     const images = Object.values(imagesGlob).map((img) => img.default).filter(src => !src.includes('vintage-rose'));
 
-    const audioRef = useRef(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-
     // Fallback if no images are found
     const hasImages = images.length > 0;
     const displayImages = hasImages ? images : [
@@ -20,31 +17,6 @@ const Slideshow = ({ message, setMessage }) => {
         "https://placehold.co/400x400/blue/white?text=Photo+5",
         "https://placehold.co/400x400/green/white?text=Photo+6",
     ];
-
-    const toggleMusic = () => {
-        if (audioRef.current) {
-            if (isPlaying) {
-                audioRef.current.pause();
-            } else {
-                audioRef.current.play().catch(e => console.log("Audio play failed:", e));
-            }
-            setIsPlaying(!isPlaying);
-        }
-    };
-
-    useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.volume = 0.5;
-            const playPromise = audioRef.current.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    setIsPlaying(true);
-                }).catch(error => {
-                    console.log("Auto-play prevented:", error);
-                });
-            }
-        }
-    }, []);
 
     // Responsive positioning logic
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight });
@@ -121,17 +93,7 @@ const Slideshow = ({ message, setMessage }) => {
     return (
         <div className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden">
             {/* Background Music */}
-            <audio ref={audioRef} loop>
-                <source src="/Love/sang_rahiyo.mp3" type="audio/mp3" />
-            </audio>
 
-            {/* Music Control */}
-            <button
-                onClick={toggleMusic}
-                className="absolute top-4 right-4 z-50 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full backdrop-blur-sm transition-all"
-            >
-                {isPlaying ? "🎵" : "🔇"}
-            </button>
 
             {/* Vintage Letter Center */}
             <motion.div
