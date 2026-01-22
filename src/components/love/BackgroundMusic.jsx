@@ -7,23 +7,33 @@ const BackgroundMusic = () => {
     const [isMuted, setIsMuted] = useState(false);
 
     useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.volume = 0.3; // 30% volume
-
-            // Try to autoplay (may be blocked by browser)
-            const playPromise = audioRef.current.play();
-
-            if (playPromise !== undefined) {
-                playPromise
+        const startAudio = () => {
+            if (audioRef.current && !isPlaying) {
+                audioRef.current.volume = 0.3;
+                audioRef.current.play()
                     .then(() => {
                         setIsPlaying(true);
+                        // Remove listener once played
+                        document.removeEventListener('click', startAudio);
                     })
-                    .catch((error) => {
-                        console.log("Autoplay prevented:", error);
-                        // Autoplay was prevented, user will need to click play
-                    });
+                    .catch(e => console.log("Play failed:", e));
             }
+        };
+
+        // Try auto-play first
+        if (audioRef.current) {
+            audioRef.current.volume = 0.3;
+            audioRef.current.play()
+                .then(() => setIsPlaying(true))
+                .catch(() => {
+                    // If auto-play fails, wait for user interaction
+                    document.addEventListener('click', startAudio);
+                });
         }
+
+        return () => {
+            document.removeEventListener('click', startAudio);
+        };
     }, []);
 
     const togglePlay = () => {
@@ -56,7 +66,7 @@ const BackgroundMusic = () => {
 
             {/* Music Control Button */}
             <motion.div
-                className="fixed bottom-6 right-6 z-50 flex gap-2"
+                className="fixed bottom-6 right-6 z-[100] flex gap-2"
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
