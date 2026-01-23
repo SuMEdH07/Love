@@ -5,19 +5,31 @@ import heartAnimation from '../../assets/love/heart.json';
 
 const Proposal = ({ onYes }) => {
     const [message, setMessage] = useState("");
+    const [step, setStep] = useState(1);
 
     const handleYesClick = () => {
-        setMessage("You cannot I love you more than anyone, No Need To Prove That ❤️");
-        setTimeout(() => {
-            onYes();
-        }, 2000);
+        if (step === 1) {
+            setStep(2);
+        } else {
+            setMessage(" Seriously? More than me?!");
+            setTimeout(() => {
+                onYes();
+            }, 3000);
+        }
     };
 
     const handleNoClick = () => {
-        setMessage("Good Girl Babe 😘");
-        setTimeout(() => {
-            onYes();
-        }, 2000);
+        if (step === 1) {
+            setMessage("Good Girl Babe 😘");
+            setTimeout(() => {
+                onYes();
+            }, 2000);
+        } else {
+            setMessage(" Why like him then :( did break you trust?, (DM me bata dio)");
+            setTimeout(() => {
+                onYes();
+            }, 4000);
+        }
     };
 
     return (
@@ -36,7 +48,9 @@ const Proposal = ({ onYes }) => {
                     }}
                 />
             </div>
-            <p className="font-handwriting text-pink-500 text-xl font-bold mt-[-10px] drop-shadow-md">You like someone else?</p>
+            <p className="font-handwriting text-pink-500 text-xl font-bold mt-[-10px] drop-shadow-md">
+                {step === 1 ? "You like someone else?" : "Well do you love him!!?"}
+            </p>
 
             {!message ? (
                 <div className="flex gap-4 mt-4 z-50">
