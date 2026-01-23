@@ -25,7 +25,7 @@ const Proposal = ({ onYes }) => {
                 onYes();
             }, 2000);
         } else {
-            setMessage(" Why like him then :( did break you trust?, (DM me bata dio)");
+            setMessage(" Why like him then :( did I break your trust Hetuu :((( ?,(DM me bata dio)");
             setTimeout(() => {
                 onYes();
             }, 4000);
